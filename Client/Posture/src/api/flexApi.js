@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://iot-smart-posture-backend.onrender.com/api/flex";
+const BASE_URL = "https://iot-smart-posture-backend.onrender.com/api/flex";
 
 export const getAllFlexData = async () => {
   const res = await axios.get(`${BASE_URL}/all`);
