@@ -187,7 +187,7 @@ const PostureGraph = () => {
       
 
       // 🔹 Format + limit to last 30 readings
-      const formattedData = res.readings
+      const formattedData = readings
        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
         .slice(-30)
         .map((item) => ({
