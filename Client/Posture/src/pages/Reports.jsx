@@ -6,19 +6,13 @@ function Report() {
   const [summary, setSummary] = useState(null);
 
   const fetchReport = async () => {
-    try {
-      // const res = await axios.get("http://localhost:5000/api/flex/all");
-      // const readings = res.data;
-      const readings = await getAllFlexData();
-      if (!readings || readings.length === 0) {
-        console.log("No new data — keeping previous data");
-        return;
-      }
+  try {
+    const readings = await getAllFlexData();
 
-      const now = new Date();
-      const threeHoursAgo = new Date(now.getTime() - 1 * 60 * 60 * 1000);
+    const now = new Date();
+    const threeHoursAgo = new Date(now.getTime() - 1 * 60 * 60 * 1000);
 
-    const recentData = readings.filter(
+    const recentData = (readings || []).filter(
       (item) => new Date(item.createdAt) >= threeHoursAgo
     );
 
@@ -32,20 +26,20 @@ function Report() {
 
     const total = recentData.length;
 
-      setSummary({
-        total,
-        good,
-        average,
-        bad,
-        goodPercent: total ? (good / total) * 100 : 0,
-        avgPercent: total ? (average / total) * 100 : 0,
-        badPercent: total ? (bad / total) * 100 : 0,
-      });
+    setSummary({
+      total,
+      good,
+      average,
+      bad,
+      goodPercent: total ? (good / total) * 100 : 0,
+      avgPercent: total ? (average / total) * 100 : 0,
+      badPercent: total ? (bad / total) * 100 : 0,
+    });
 
-    } catch (err) {
-      console.error("Report fetch error:", err);
-    }
-  };
+  } catch (err) {
+    console.error("Report fetch error:", err);
+  }
+};
 
   useEffect(() => {
     fetchReport();

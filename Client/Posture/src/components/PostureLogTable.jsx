@@ -269,7 +269,7 @@ const PostureLogTable = () => {
 
       setLogs(formatted);
     } catch (err) {
-      console.error("❌ Error fetching logs:", err);
+      console.error("Error fetching logs:", err);
     }
   };
 
