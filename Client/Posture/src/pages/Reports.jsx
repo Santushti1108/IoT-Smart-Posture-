@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getAllFlexData } from "../api/flexApi";
 import axios from "axios";
 
 function Report() {
@@ -6,8 +7,9 @@ function Report() {
 
   const fetchReport = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/flex/all");
-      const readings = res.data;
+      // const res = await axios.get("http://localhost:5000/api/flex/all");
+      // const readings = res.data;
+      const readings = await getAllFlexData();
       if (!readings || readings.length === 0) {
         console.log("No new data — keeping previous data");
         return;
@@ -16,7 +18,7 @@ function Report() {
       const now = new Date();
       const threeHoursAgo = new Date(now.getTime() - 1 * 60 * 60 * 1000);
 
-    const recentData = res.data.filter(
+    const recentData = readings.filter(
       (item) => new Date(item.createdAt) >= threeHoursAgo
     );
 

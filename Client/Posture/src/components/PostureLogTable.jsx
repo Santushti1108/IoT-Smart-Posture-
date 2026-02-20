@@ -258,7 +258,7 @@ const PostureLogTable = () => {
         return;
       }
 
-      const formatted = res.data
+      const formatted = readings
       .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
         .slice(-30)
         .map((item) => ({
