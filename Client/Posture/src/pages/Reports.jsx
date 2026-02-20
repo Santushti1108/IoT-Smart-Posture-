@@ -7,6 +7,11 @@ function Report() {
   const fetchReport = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/flex/all");
+      const readings = res.data;
+      if (!readings || readings.length === 0) {
+        console.log("No new data — keeping previous data");
+        return;
+      }
 
       const now = new Date();
       const threeHoursAgo = new Date(now.getTime() - 1 * 60 * 60 * 1000);

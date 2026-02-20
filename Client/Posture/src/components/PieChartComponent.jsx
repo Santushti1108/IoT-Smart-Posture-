@@ -17,6 +17,11 @@ useEffect(() => {
     try {
       const readings = await getAllFlexData();
 
+      if (!readings || readings.length === 0) {
+        console.log("No new data — keeping previous data");
+        return;
+      }
+
       // Classify readings based on bend percentage
       let good = 0, average = 0, bad = 0;
       readings.forEach((r) => {
@@ -31,7 +36,7 @@ useEffect(() => {
           { name: "Bad", value: bad },
         ]);
       } catch (err) {
-        console.error("❌ Error fetching flex data:", err);
+        console.error(" Error fetching flex data:", err);
       }
   };
 

@@ -157,6 +157,7 @@
 
 
 import React, { useEffect, useState } from "react";
+import { getAllFlexData } from "../api/flexApi";
 import {
   LineChart,
   Line,
@@ -175,6 +176,14 @@ const PostureGraph = () => {
   const fetchData = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/flex/all");
+      const readings = res.data;
+
+      if (!readings || readings.length === 0) {
+        console.log("No new data — keeping previous data");
+        return;
+      }
+
+      
 
       // 🔹 Format + limit to last 30 readings
       const formattedData = res.data
@@ -191,11 +200,11 @@ const PostureGraph = () => {
 
       setData(formattedData);
     } catch (err) {
-      console.error("❌ Error fetching posture data:", err);
+      console.error("Error fetching posture data:", err);
     }
   };
 
-  // 🔁 Auto-refresh every 5 seconds
+  //  Auto-refresh every 5 seconds
   useEffect(() => {
     fetchData();
     const interval = setInterval(fetchData, 5000);
