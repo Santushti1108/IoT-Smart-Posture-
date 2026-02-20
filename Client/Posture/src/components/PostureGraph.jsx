@@ -156,7 +156,7 @@
 // export default PostureGraph;
 
 
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { getAllFlexData } from "../api/flexApi";
 import {
   LineChart,
@@ -175,8 +175,9 @@ const PostureGraph = () => {
   // 🔹 Fetch flex sensor data from backend
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/flex/all");
-      const readings = res.data;
+      // const res = await axios.get("http://localhost:5000/api/flex/all");
+      // const readings = res.data;
+      const readings = await getAllFlexData();
 
       if (!readings || readings.length === 0) {
         console.log("No new data — keeping previous data");

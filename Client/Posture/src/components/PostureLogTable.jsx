@@ -244,14 +244,15 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { getAllFlexData } from "../api/flexApi";
 const PostureLogTable = () => {
   const [logs, setLogs] = useState([]);
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/flex/all");
-      const readings = res.data;
+      // const res = await axios.get("http://localhost:5000/api/flex/all");
+      // const readings = res.data;
+      const readings = await getAllFlexData();
       if (!readings || readings.length === 0) {
         console.log("No new data — keeping previous data");
         return;
